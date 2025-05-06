@@ -4,7 +4,7 @@ import jakarta.persistence.Id;
 
 import java.util.Date;
 @Entity
-public class Reception {
+public class Reception extends Produit {
     private Date dateReception;
     private String source;
     private String entrepot;
