@@ -11,7 +11,7 @@ public class Entropot {
         private String code;
         private String nom;
         private String address;
-        
+
 
         // Getters, setters, constructeurs
 
