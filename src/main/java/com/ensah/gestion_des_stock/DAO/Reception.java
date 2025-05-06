@@ -5,8 +5,6 @@ import jakarta.persistence.Id;
 import java.util.Date;
 @Entity
 public class Reception {
-    @Id
-    private String numReception;
     private Date dateReception;
     private String source;
     private String entrepot;
@@ -15,20 +13,11 @@ public class Reception {
 
     public Reception(){}
 
-    public Reception(String numReception, Date dateReception, String source, String type, String remarque){
-        this.numReception = numReception;
+    public Reception(Date dateReception, String source, String type, String remarque){
         this.dateReception = dateReception;
         this.source = source;
         this.type = type;
         this.remarque = remarque;
-    }
-    public String getNumReception() {
-
-        return numReception;
-    }
-    public void setNumReception(String numReception) {
-
-        this.numReception = numReception;
     }
     public Date getDateReception() {
         return dateReception;
