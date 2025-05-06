@@ -1,8 +1,12 @@
 package com.ensah.gestion_des_stock.DAO;
 
-import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+import java.util.Date;
+@Entity
 public class Commande {
+    @Id
     private String NumComd;
     private Date DateComd;
     private String Client;

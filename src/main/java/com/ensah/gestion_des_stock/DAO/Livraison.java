@@ -1,9 +1,12 @@
 package com.ensah.gestion_des_stock.DAO;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.util.Date;
-
+@Entity
 public class Livraison {
-
+    @Id
     private String Numlivraison;
     private Date DateLiv;
     private String source;
