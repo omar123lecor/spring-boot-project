@@ -10,18 +10,6 @@ public class Transfere extends Produit{
     private String entrepot_destination;
     private String Remarque;
 
-    // Constructeur par défaut
-    public Transfere() {
-    }
-
-    // Constructeur avec tous les champs
-    public Transfere(String id_transfere, Date date_Transfere, String entrepot_source, String entrepot_destination, String remarque) {
-        this.Date_Transfere = date_Transfere;
-        this.entrepot_source = entrepot_source;
-        this.entrepot_destination = entrepot_destination;
-        this.Remarque = remarque;
-    }
-
 
     public Date getDate_Transfere() {
         return Date_Transfere;

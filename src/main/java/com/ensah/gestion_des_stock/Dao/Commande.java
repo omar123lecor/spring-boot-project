@@ -10,18 +10,6 @@ public class Commande extends Produit {
     private String entrepot;
     private String Remarque;
 
-    // Constructeur par défaut
-    public Commande() {
-    }
-
-    // Constructeur avec tous les champs
-    public Commande(String NumComd, Date DateComd, String Client, String entrepot, String Remarque) {
-        this.DateComd = DateComd;
-        this.Client = Client;
-        this.entrepot = entrepot;
-        this.Remarque = Remarque;
-    }
-
 
     public Date getDateComd() {
         return DateComd;

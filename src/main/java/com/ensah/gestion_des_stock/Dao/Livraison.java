@@ -11,18 +11,6 @@ public class Livraison extends Produit{
     private String Type;
     private String Remarque;
 
-    // Constructeur par défaut
-    public Livraison() {
-    }
-
-    // Constructeur avec tous les champs
-    public Livraison(String numlivraison, Date dateLiv, String source, String destination, String type, String remarque) {
-        this.DateLiv = dateLiv;
-        this.source = source;
-        this.Destination = destination;
-        this.Type = type;
-        this.Remarque = remarque;
-    }
 
 
     public Date getDateLiv() {

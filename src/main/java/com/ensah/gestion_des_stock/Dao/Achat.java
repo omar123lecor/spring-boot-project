@@ -8,16 +8,6 @@ public class Achat extends Produit {
     private Date DateAchat;
     private String Source;
 
-    // Constructeur par défaut
-    public Achat() {
-    }
-
-    // Constructeur avec tous les champs
-    public Achat(String numAchat, Date dateAchat, String source) {
-        this.DateAchat = dateAchat;
-        this.Source = source;
-    }
-
 
     public Date getDateAchat() {
         return DateAchat;
