@@ -1,19 +1,22 @@
-package com.ensah.gestion_des_stock.DAO;
+package com.ensah.gestion_des_stock.model;
 
+import jakarta.persistence.OneToMany;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.util.Set;
+
+@Entity
 public class Entropot {
-    @Entity
-    public class Entrepot {
         @Id
         private String code;
         private String nom;
         private String address;
-        
-
-        // Getters, setters, constructeurs
+        @OneToMany(mappedBy = "entrepot")
+        private Set<Reception> receptions;
+        @OneToMany(mappedBy = "entrepot")
+        private Set<Inventaire> inventaires;
 
         public String getCode() {
             return code;
@@ -34,6 +37,5 @@ public class Entropot {
             this.address = address;
         }
 
-    }
+ }
 
-}
