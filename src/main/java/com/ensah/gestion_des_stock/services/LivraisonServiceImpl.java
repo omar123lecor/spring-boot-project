@@ -1,7 +1,7 @@
 package com.ensah.gestion_des_stock.services;
 
 import com.ensah.gestion_des_stock.model.Livraison;
-import com.ensah.gestion_des_stock.repositorys.LivraisonRepository;
+import com.ensah.gestion_des_stock.repositories.LivraisonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

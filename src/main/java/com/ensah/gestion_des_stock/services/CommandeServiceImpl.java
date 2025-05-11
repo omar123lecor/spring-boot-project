@@ -1,10 +1,9 @@
 package com.ensah.gestion_des_stock.services;
 import com.ensah.gestion_des_stock.model.Commande;
-import com.ensah.gestion_des_stock.repositorys.CommandeRepository;
+import com.ensah.gestion_des_stock.repositories.CommandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CommandeServiceImpl implements CommandeService {

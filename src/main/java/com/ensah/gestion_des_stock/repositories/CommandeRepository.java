@@ -1,4 +1,4 @@
-package com.ensah.gestion_des_stock.repositorys;
+package com.ensah.gestion_des_stock.repositories;
 
 
 import com.ensah.gestion_des_stock.model.Commande;
@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
     List<Commande> findByNom(String nom);
