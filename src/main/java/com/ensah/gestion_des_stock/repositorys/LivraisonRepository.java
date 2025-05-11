@@ -15,7 +15,7 @@ public interface LivraisonRepository extends JpaRepository<Livraison, Long> {
     List<Livraison> findByDateLiv(Date dateLiv);
     List<Livraison> findByNom(String nom); // hérité de Produit
     List<Livraison> findByDestination(String destination);
-    @Query(""" SELECT l FROM Livraison l WHERE (:nom IS NULL OR l.nom = :nom) AND (:entrepot IS NULL OR l.entrepot = :entrepot) AND (:dateLiv IS NULL OR l.dateLiv = :dateLiv)""")
+    @Query("SELECT l FROM Livraison l WHERE (:nom IS NULL OR l.nom = :nom) AND (:entrepot IS NULL OR l.source = :entrepot) AND (:dateLiv IS NULL OR l.dateLiv = :dateLiv)")
     List<Livraison> chercherLivraisons(
             @Param("nom") String nom,
             @Param("entrepot") String entrepot,
