@@ -1,8 +1,9 @@
 package com.ensah.gestion_des_stock.services;
 
 import com.ensah.gestion_des_stock.model.Entropot;
+import com.ensah.gestion_des_stock.model.Reception;
 import com.ensah.gestion_des_stock.model.Transfere;
-import com.ensah.gestion_des_stock.repositorys.TransfertRepository;
+import com.ensah.gestion_des_stock.repositories.TransfertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,22 +54,17 @@ public class TransfertServiceImpl implements TransfertService {
     }
 
     @Override
-    public List<Transfere> filtrerParSource(Entropot source) {
-        return transfertRepository.findByEntrepotSource(source);
-    }
-
-    @Override
-    public List<Transfere> filtrerParDestination(Entropot destination) {
-        return transfertRepository.findByEntrepotDestination(destination);
-    }
-
-    @Override
     public List<Transfere> filtrerParDate(LocalDate debut, LocalDate fin) {
         return transfertRepository.findByDateTransfereBetween(debut, fin);
     }
 
     @Override
-    public List<Transfere> filtrerParRemarque(String motCle) {
-        return transfertRepository.findByRemarqContaining(motCle);
+    public List<Transfere> filtrerParNom(String nom) {
+        return transfertRepository.findByNom(nom);
     }
+    public List<Transfere> searchByNomAndDate(String nom, LocalDate debut, LocalDate fin) {
+        return transfertRepository.searchByNomAndDate(nom, debut, fin);
+    }
+
 }
+

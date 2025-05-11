@@ -2,8 +2,7 @@ package com.ensah.gestion_des_stock.services;
 
 import com.ensah.gestion_des_stock.model.Inventaire;
 import com.ensah.gestion_des_stock.model.Entropot;
-import com.ensah.gestion_des_stock.repositorys.InventaireRepository;
-import com.ensah.gestion_des_stock.services.InventaireService;
+import com.ensah.gestion_des_stock.repositories.InventaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

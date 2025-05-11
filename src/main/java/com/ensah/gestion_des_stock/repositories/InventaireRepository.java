@@ -1,4 +1,4 @@
-package com.ensah.gestion_des_stock.repositorys;
+package com.ensah.gestion_des_stock.repositories;
 
 import com.ensah.gestion_des_stock.model.Inventaire;
 import com.ensah.gestion_des_stock.model.Entropot;

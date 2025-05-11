@@ -1,10 +1,9 @@
-package com.ensah.gestion_des_stock.repositorys;
+package com.ensah.gestion_des_stock.repositories;
 
 import com.ensah.gestion_des_stock.model.Entropot;
 import com.ensah.gestion_des_stock.model.Reception;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.thymeleaf.engine.ElementName;
 
 import java.time.LocalDate;
 import java.util.List;
