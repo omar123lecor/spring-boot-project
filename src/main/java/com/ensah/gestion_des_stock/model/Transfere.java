@@ -1,4 +1,4 @@
-package com.ensah.gestion_des_stock.Dao;
+package com.ensah.gestion_des_stock.model;
 
 import jakarta.persistence.Entity;
 

@@ -1,24 +1,23 @@
-package com.ensah.gestion_des_stock.Dao;
+package com.ensah.gestion_des_stock.model;
 
 import jakarta.persistence.Entity;
-
 import java.util.Date;
 @Entity
 public class Livraison extends Produit{
-    private Date DateLiv;
+    private Date dateLiv;
     private String source;
-    private String Destination;
-    private String Type;
-    private String Remarque;
+    private String destination;
+    private String type;
+    private String remarque;
 
 
 
     public Date getDateLiv() {
-        return DateLiv;
+        return dateLiv;
     }
 
     public void setDateLiv(Date dateLiv) {
-        this.DateLiv = dateLiv;
+        this.dateLiv = dateLiv;
     }
 
     public String getSource() {
@@ -30,26 +29,26 @@ public class Livraison extends Produit{
     }
 
     public String getDestination() {
-        return Destination;
+        return destination;
     }
 
     public void setDestination(String destination) {
-        this.Destination = destination;
+        this.destination = destination;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        this.Type = type;
+        this.type = type;
     }
 
     public String getRemarque() {
-        return Remarque;
+        return remarque;
     }
 
     public void setRemarque(String remarque) {
-        this.Remarque = remarque;
+        this.remarque = remarque;
     }
 }

@@ -1,6 +1,5 @@
-package com.ensah.gestion_des_stock.DAO;
+package com.ensah.gestion_des_stock.model;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
 import java.util.Date;
 @Entity
@@ -37,9 +36,5 @@ public class Reception extends Produit {
     public void setType(String type) {
         this.type = type;
     }
-
-
-
-
 
 }
