@@ -1,6 +1,7 @@
 package com.ensah.gestion_des_stock.DAO;
 
 import jakarta.persistence.Entity;
+<<<<<<< HEAD
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -8,12 +9,19 @@ import java.util.Date;
 public class Transfere {
     @Id
     private String id_transfere;
+=======
+
+import java.util.Date;
+@Entity
+public class Transfere extends Produit{
+>>>>>>> f697ea77c806a291560bade1966de074488235c4
     private Date Date_Transfere;
     private String entrepot_source;
     private String entrepot_destination;
     private String Remarque;
 
 
+<<<<<<< HEAD
     public Transfere() {
     }
 
@@ -34,6 +42,8 @@ public class Transfere {
         this.id_transfere = id_transfere;
     }
 
+=======
+>>>>>>> f697ea77c806a291560bade1966de074488235c4
     public Date getDate_Transfere() {
         return Date_Transfere;
     }
@@ -65,5 +75,8 @@ public class Transfere {
     public void setRemarque(String remarque) {
         this.Remarque = remarque;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> f697ea77c806a291560bade1966de074488235c4
 }

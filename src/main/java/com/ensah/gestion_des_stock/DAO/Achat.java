@@ -1,6 +1,7 @@
 package com.ensah.gestion_des_stock.DAO;
 
 import jakarta.persistence.Entity;
+<<<<<<< HEAD
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -29,6 +30,15 @@ public class Achat{
     public void setNumAchat(String numAchat) {
         this.NumAchat = numAchat;
     }
+=======
+
+import java.util.Date;
+@Entity
+public class Achat extends Produit {
+    private Date DateAchat;
+    private String Source;
+
+>>>>>>> f697ea77c806a291560bade1966de074488235c4
 
     public Date getDateAchat() {
         return DateAchat;
@@ -46,4 +56,7 @@ public class Achat{
         this.Source = source;
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> f697ea77c806a291560bade1966de074488235c4

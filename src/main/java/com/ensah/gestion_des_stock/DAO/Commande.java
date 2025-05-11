@@ -1,6 +1,7 @@
 package com.ensah.gestion_des_stock.DAO;
 
 import jakarta.persistence.Entity;
+<<<<<<< HEAD
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -8,11 +9,18 @@ import java.util.Date;
 public class Commande {
     @Id
     private String NumComd;
+=======
+
+import java.util.Date;
+@Entity
+public class Commande extends Produit {
+>>>>>>> f697ea77c806a291560bade1966de074488235c4
     private Date DateComd;
     private String Client;
     private String entrepot;
     private String Remarque;
 
+<<<<<<< HEAD
     public Commande(){
 
     }
@@ -32,6 +40,8 @@ public class Commande {
     public void setNumComd(String numComd) {
         this.NumComd = numComd;
     }
+=======
+>>>>>>> f697ea77c806a291560bade1966de074488235c4
 
     public Date getDateComd() {
         return DateComd;
