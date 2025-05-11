@@ -1,0 +1,22 @@
+package com.ensah.gestion_des_stock.repositories;
+
+import com.ensah.gestion_des_stock.Dao.Achat;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * @author $ {USER}
+ **/
+@Repository
+public interface AchatRepository extends JpaRepository<Achat, Long> {
+    @Query("""
+    SELECT a FROM Achat a 
+    WHERE (:nom IS NULL OR a.nom = :nom) 
+    AND (:id IS NULL OR a.id = :id)
+    """)
+    List<Achat> findByIdOrNom(String nom , Long id);
+}
+
