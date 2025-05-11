@@ -1,33 +1,30 @@
-package com.ensah.gestion_des_stock.model;
+package com.ensah.gestion_des_stock.DAO;
 
 import jakarta.persistence.Entity;
-
 
 import java.util.Date;
 @Entity
 public class Commande extends Produit {
-    private Date dateComd;
+    private Date DateComd;
+    private String Client;
     private String entrepot;
-    private String client;
-
-    private String remarque;
+    private String Remarque;
 
 
     public Date getDateComd() {
-        return dateComd;
+        return DateComd;
     }
 
     public void setDateComd(Date dateComd) {
-        this.dateComd = dateComd;
+        this.DateComd = dateComd;
     }
 
     public String getClient() {
-
-        return client;
+        return Client;
     }
 
     public void setClient(String client) {
-        this.client = client;
+        this.Client = client;
     }
 
     public String getEntrepot() {
@@ -39,10 +36,10 @@ public class Commande extends Produit {
     }
 
     public String getRemarque() {
-        return remarque;
+        return Remarque;
     }
 
     public void setRemarque(String remarque) {
-        this.remarque = remarque;
+        this.Remarque = remarque;
     }
 }

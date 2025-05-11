@@ -18,10 +18,6 @@ public class Entropot {
         @OneToMany(mappedBy = "entrepot")
         private Set<Inventaire> inventaires;
 
-
-
-    // Getters, setters, constructeurs
-
         public String getCode() {
             return code;
         }
@@ -41,5 +37,5 @@ public class Entropot {
             this.address = address;
         }
 
-    }
+ }
 

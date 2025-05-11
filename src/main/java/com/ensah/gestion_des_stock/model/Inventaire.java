@@ -1,6 +1,10 @@
 package com.ensah.gestion_des_stock.model;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.util.Date;
 
@@ -16,8 +20,6 @@ public class Inventaire {
     @ManyToOne
     @JoinColumn(name = "code")
     private Entropot entropot;
-
-
 
     public Long getId() {
         return id;
@@ -43,6 +45,7 @@ public class Inventaire {
     public void setValidePar(String validePar) {
         this.validePar = validePar;
     }
+
     public int getEcart() {
         return ecart;
     }
@@ -55,7 +58,5 @@ public class Inventaire {
     public void setEntropot(Entropot entropot) {
         this.entropot = entropot;
     }
-
-
 
 }

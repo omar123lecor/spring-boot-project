@@ -1,5 +1,7 @@
 package com.ensah.gestion_des_stock.model;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+
 import java.util.Date;
 
 @Entity
@@ -10,6 +12,8 @@ public class Reception extends Produit {
     @ManyToOne
     @JoinColumn(name = "code")  // colonne FK
     private Entropot entrepot;
+
+    private String entrepot;
     private String type;
     private String remarque;
 
