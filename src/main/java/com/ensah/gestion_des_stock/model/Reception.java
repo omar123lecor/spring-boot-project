@@ -1,12 +1,19 @@
 package com.ensah.gestion_des_stock.model;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.util.Date;
+
 @Entity
 public class Reception extends Produit {
     private Date dateReception;
     private String source;
-    private String entrepot;
+    //plusieurs réceptions peuvent être associées à un seul entrepôt
+    @ManyToOne
+    @JoinColumn(name = "code")  // colonne FK
+    private Entropot entropot;
     private String type;
     private String remarque;
 
@@ -36,5 +43,18 @@ public class Reception extends Produit {
     public void setType(String type) {
         this.type = type;
     }
+    public String getRemarque() {
+        return remarque;
+    }
+    public void setRemarque(String remarque) {
+        this.remarque = remarque;
+    }
+    public Entropot getEntrepot() {
+        return entropot;
+    }
+    public void setEntrepot(Entropot entrepot) {
+        this.entropot = entrepot;
+    }
+
 
 }

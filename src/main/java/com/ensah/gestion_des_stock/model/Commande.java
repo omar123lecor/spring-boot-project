@@ -1,6 +1,7 @@
 package com.ensah.gestion_des_stock.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+
 
 import java.util.Date;
 @Entity
@@ -10,6 +11,9 @@ public class Commande extends Produit {
     private String client;
     private String remarque;
 
+    public void setClient(String client) {
+        this.client = client;
+    }
 
     public Date getDateComd() {
         return dateComd;
@@ -19,13 +23,8 @@ public class Commande extends Produit {
         this.dateComd = dateComd;
     }
 
-    public String
-    getClient() {
+    public String getClient() {
         return client;
-    }
-
-    public void setClient(String client) {
-        this.client = client;
     }
 
     public String getEntrepot() {

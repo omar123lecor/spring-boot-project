@@ -9,36 +9,33 @@ import java.util.Set;
 
 @Entity
 public class Entropot {
-    @Id
-    private String code;
-    private String nom;
-    private String address;
-    @OneToMany(mappedBy = "entrepot")
-    private Set<Reception> receptions;
-    @OneToMany(mappedBy = "entrepot")
-    private Set<Inventaire> inventaires;
+        @Id
+        private String code;
+        private String nom;
+        private String address;
+        @OneToMany(mappedBy = "entropot")
+        private Set<Reception> receptions;
+        @OneToMany(mappedBy = "entropot")
+        private Set<Inventaire> inventaires;
 
+        public String getCode() {
+            return code;
+        }
+        public void setCode(String code) {
+            this.code = code;
+        }
+        public String getNom() {
+            return nom;
+        }
+        public void setNom(String nom) {
+            this.nom = nom;
+        }
+        public String getAddress() {
+            return address;
+        }
+        public void setAddress(String address) {
+            this.address = address;
+        }
 
+ }
 
-    // Getters, setters, constructeurs
-
-    public String getCode() {
-        return code;
-    }
-    public void setCode(String code) {
-        this.code = code;
-    }
-    public String getNom() {
-        return nom;
-    }
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-    public String getAddress() {
-        return address;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-}
