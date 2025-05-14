@@ -17,9 +17,16 @@ public class ReceptionServiceImpl implements ReceptionService {
     @Autowired
     private ReceptionRepository receptionRepository;
 
+
+
     @Override
     public Reception ajouter(Reception reception) {
         return receptionRepository.save(reception);
+    }
+
+    @Override
+    public List<Reception> allReceptions() {
+        return receptionRepository.findAll();
     }
 
     @Override

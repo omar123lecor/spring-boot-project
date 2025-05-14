@@ -10,6 +10,7 @@ import java.util.List;
 public interface ReceptionService {
 
     Reception ajouter(Reception reception);
+    List<Reception> allReceptions();
 
     void supprimer(Long id);
 
