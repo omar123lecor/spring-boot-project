@@ -1,6 +1,7 @@
 package com.ensah.gestion_des_stock.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * @author $ {USER}
@@ -10,9 +11,12 @@ public class Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Product name is required")
     @Column(nullable = false)
     private String nom;
+    @NotEmpty(message = "Product unite is required")
     private String unite;
+    @NotEmpty(message = "Product qte is required")
     private int qte;
 
     public Long getId() {

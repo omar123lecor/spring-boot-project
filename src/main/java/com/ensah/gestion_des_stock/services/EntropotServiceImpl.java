@@ -20,12 +20,12 @@ public class EntropotServiceImpl implements EntropotService {
 
     @Override
     public void supprimerEntropot(String code) {
-        entrepotRepository.deleteById(Long.valueOf(code));
+        entrepotRepository.deleteById(code);
     }
 
     @Override
     public Entropot modifierEntropot(String code, Entropot entropot) {
-        Entropot existing = entrepotRepository.findById(Long.valueOf(code)).orElse(null);
+        Entropot existing = entrepotRepository.findById(code).orElse(null);
         if (existing != null) {
             entropot.setCode(code); // assure l'update
             return entrepotRepository.save(entropot);

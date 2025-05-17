@@ -1,20 +1,24 @@
 package com.ensah.gestion_des_stock.model;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Date;
 @Entity
 public class Achat extends Produit {
-    private Date DateAchat;
+
+
+    private Date dateAchat;
+
     private String Source;
 
 
     public Date getDateAchat() {
-        return DateAchat;
+        return dateAchat;
     }
 
     public void setDateAchat(Date dateAchat) {
-        this.DateAchat = dateAchat;
+        this.dateAchat = dateAchat;
     }
 
     public String getSource() {
