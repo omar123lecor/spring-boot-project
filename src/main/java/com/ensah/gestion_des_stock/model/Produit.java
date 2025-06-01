@@ -2,6 +2,7 @@ package com.ensah.gestion_des_stock.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author $ {USER}
@@ -16,8 +17,8 @@ public class Produit {
     private String nom;
     @NotEmpty(message = "Product unite is required")
     private String unite;
-    @NotEmpty(message = "Product qte is required")
-    private int qte;
+    @NotNull(message = "Product qte is required")
+    private Long qte;
 
     public Long getId() {
         return id;
@@ -43,11 +44,11 @@ public class Produit {
         this.unite = unite;
     }
 
-    public int getQte() {
+    public Long getQte() {
         return qte;
     }
 
-    public void setQte(int qte) {
+    public void setQte(Long qte) {
         this.qte = qte;
     }
 }

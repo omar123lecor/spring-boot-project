@@ -11,4 +11,6 @@ public interface EntropotService {
 
     List<Entropot> lister();
     Entropot ajouterEntropot(Entropot entropot);
+
+    Entropot getEntropotByCode(String code);
 }

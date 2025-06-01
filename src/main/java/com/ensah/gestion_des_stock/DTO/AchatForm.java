@@ -2,6 +2,8 @@ package com.ensah.gestion_des_stock.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -10,45 +12,58 @@ import java.util.Date;
  **/
 public class AchatForm {
 
-    @NotBlank(message = "this field is required")
-    private Date DateOfReception ;
-    @NotBlank(message = "this field is required")
-    private Date DateOfBuy;
-    @NotBlank(message = "this field is required")
-    private Long AchatNumber;
-    @NotBlank(message = "this field is required")
+    @NotNull(message = "this field is required",groups = {HorsAchatGroup.class,AchatGroup.class})
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfReception ;
+    @NotNull(message = "this field is required",groups = {AchatGroup.class})
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfBuy;
+    @NotNull(message = "this field is required",groups = {AchatGroup.class})
+    private Long achatNumber;
+    @NotBlank(message = "this field is required",groups = {HorsAchatGroup.class,AchatGroup.class})
     private String productName;
-    @NotBlank(message = "this field is required")
+    @NotBlank(message = "this field is required",groups = {HorsAchatGroup.class,AchatGroup.class})
     private String unite;
-    @NotBlank(message = "this field is required")
-    private int qte;
-    @NotBlank(message = "this field is required")
+    @NotNull(message = "this field is required",groups = {HorsAchatGroup.class,AchatGroup.class})
+    private Long qte;
+    @NotBlank(message = "this field is required",groups = {HorsAchatGroup.class,AchatGroup.class})
     private String source;
-    @NotBlank(message = "this field is required")
+    @NotBlank(message = "this field is required",groups = {HorsAchatGroup.class,AchatGroup.class})
     private String magCode;
 
+    @NotEmpty(message = "this field is required",groups = {AchatGroup.class})
+    private String remarque;
+    public String getRemarque() {
+        return remarque;
+    }
+
+    public void setRemarque(String remarque) {
+        this.remarque = remarque;
+    }
+
+
     public Date getDateOfReception() {
-        return DateOfReception;
+        return dateOfReception;
     }
 
     public void setDateOfReception(Date dateOfReception) {
-        DateOfReception = dateOfReception;
+        this.dateOfReception = dateOfReception;
     }
 
     public Date getDateOfBuy() {
-        return DateOfBuy;
+        return dateOfBuy;
     }
 
     public void setDateOfBuy(Date dateOfBuy) {
-        DateOfBuy = dateOfBuy;
+        this.dateOfBuy = dateOfBuy;
     }
 
     public Long getAchatNumber() {
-        return AchatNumber;
+        return achatNumber;
     }
 
     public void setAchatNumber(Long achatNumber) {
-        AchatNumber = achatNumber;
+        this.achatNumber = achatNumber;
     }
 
     public String getProductName() {
@@ -67,11 +82,11 @@ public class AchatForm {
         this.unite = unite;
     }
 
-    public int getQte() {
+    public Long getQte() {
         return qte;
     }
 
-    public void setQte(int qte) {
+    public void setQte(Long qte) {
         this.qte = qte;
     }
 

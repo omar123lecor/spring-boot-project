@@ -25,24 +25,13 @@
         </li>
     </ul>
 </nav>
-
 <div class="container my-4">
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4">
             <h2 class="text-center mb-5">
-                Add Reception
+                Hors Achat Form
             </h2>
-            <form method="post" th:action="@{/reception/save}" th:object="${achat}" >
-                <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Date d'achat</label>
-                    <div class="col-sm-8">
-                        <input type="date" readonly class="form-control" th:field="*{dateOfBuy}" >
-                        <p th:if="${#fields.hasErrors('dateOfBuy')}"
-                           th:errorclass="text-danger"
-                           th:errors="*{dateOfBuy}"></p>
-                    </div>
-                </div>
-
+            <form method="post" th:action="@{/reception/save/hors}" th:object="${achat}" >
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Date de réception</label>
                     <div class="col-sm-8">
@@ -54,15 +43,9 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Numéro d'achat</label>
-                    <div class="col-sm-8">
-                        <input type="number" readonly class="form-control" th:field="*{achatNumber}" >
-                    </div>
-                </div>
-                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">produit</label>
                     <div class="col-sm-8">
-                        <input type="text" readonly class="form-control" th:field="*{productName}" >
+                        <input type="text"  class="form-control" th:field="*{productName}" >
                         <p th:if="${#fields.hasErrors('productName')}"
                            th:errorclass="text-danger"
                            th:errors="*{productName}"></p>
@@ -71,7 +54,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Unité</label>
                     <div class="col-sm-8">
-                        <input type="text" readonly class="form-control" th:field="*{unite}" >
+                        <input type="text"  class="form-control" th:field="*{unite}" >
                         <p th:if="${#fields.hasErrors('unite')}"
                            th:errorclass="text-danger"
                            th:errors="*{unite}"></p>
@@ -80,7 +63,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Quantité</label>
                     <div class="col-sm-8">
-                        <input type="text" readonly class="form-control" th:field="*{qte}" >
+                        <input type="number" min="1" class="form-control" th:field="*{qte}" >
                         <p th:if="${#fields.hasErrors('qte')}"
                            th:errorclass="text-danger"
                            th:errors="*{qte}"></p>
@@ -89,19 +72,10 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Source</label>
                     <div class="col-sm-8">
-                        <input type="text" readonly class="form-control" th:field="*{source}" >
+                        <input type="text"  class="form-control" th:field="*{source}" >
                         <p th:if="${#fields.hasErrors('source')}"
                            th:errorclass="text-danger"
                            th:errors="*{source}"></p>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Remarque</label>
-                    <div class="col-sm-8">
-                        <input type="text"  class="form-control" th:field="*{remarque}" >
-                        <p th:if="${#fields.hasErrors('remarque')}"
-                           th:errorclass="text-danger"
-                           th:errors="*{remarque}"></p>
                     </div>
                 </div>
                 <div class="row mb-3">

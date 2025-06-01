@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface AchatService {
     public List<Achat> searchAchat(String nom , Long id);
     public List<Achat> allAchat();
-    public Optional<Achat> findAchat(Long id);
+    public Achat findAchat(Long id);
 }

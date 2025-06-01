@@ -27,7 +27,7 @@ public class AchatServiceImpl implements AchatService {
     public List<Achat> allAchat(){ return  achatRepository.findAll();}
 
     @Override
-    public Optional<Achat> findAchat(Long id){
-        return achatRepository.findById(id);
+    public Achat findAchat(Long id){
+        return achatRepository.findById(id).orElse(null);
     }
 }
