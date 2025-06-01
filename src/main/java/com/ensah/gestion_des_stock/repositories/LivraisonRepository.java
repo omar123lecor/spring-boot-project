@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -21,4 +22,8 @@ public interface LivraisonRepository extends JpaRepository<Livraison, Long> {
             @Param("entrepot") String entrepot,
             @Param("dateLiv") Date dateLiv
     );
+    @Query("select l from Livraison  l where l.commande.id = :id ")
+    Optional<Livraison> findByCommande(@Param("id") Long id);
+
+
 }

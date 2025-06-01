@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rechercher une commande</title>
+    <!-- Bootstrap CSS (si tu ne l’as pas déjà inclus dans un layout global) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <span th:text="${successMessage}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="container mt-5">
+    <h2 class="mb-4">Rechercher une commande</h2>
+
+    <form th:action="@{/livraisons/add}" method="get" class="row g-3 mb-4">
+        <div class="col-md-5">
+            <label for="numCommande" class="form-label">Numéro de commande</label>
+            <input type="text" id="numCommande" name="numCommande" class="form-control"
+                   th:value="${numCommande}" placeholder="Ex: 12345">
+        </div>
+
+        <div class="col-md-5">
+            <label for="nomCommande" class="form-label">Nom de la commande</label>
+            <input type="text" id="nomCommande" name="nom" class="form-control"
+                   th:value="${nom}" placeholder="">
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Rechercher</button>
+        </div>
+    </form>
+
+    <div th:if="${commandes != null}">
+        <div th:if="${#lists.isEmpty(commandes)}">
+            <div class="alert alert-warning">Aucune commande trouvée.</div>
+        </div>
+        <div th:unless="${#lists.isEmpty(commandes)}">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="commande : ${commandes}">
+                    <td th:text="${commande.id}"></td>
+                    <td th:text="${commande.nom}"></td>
+                    <td th:text="${commande.dateComd != null ? #dates.format(commande.dateComd, 'dd/MM/yyyy') : ''}"></td>
+
+                    <td>
+                        <a th:href="@{/livraisons/livrer(id=${commande.id})}" class="btn btn-sm btn-success">Livrer</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a th:href="@{/livraisons}" class="btn btn-secondary">Retour</a>
+    </div>
+    <div class="mt-4 d-flex justify-content-between">
+        <a th:href="@{/livraisons}" class="btn btn-secondary">Retour</a>
+        <a th:href="@{/livraisons/nouvelle}" class="btn btn-outline-success">Ajouter livraison hors commande</a>
+    </div>
+
+</div>
+
+</body>
+</html>
