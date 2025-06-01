@@ -66,6 +66,11 @@ public class TransfertServiceImpl implements TransfertService {
     public List<Transfere> searchByNomAndDate(String nom, Date debut) {
         return transfertRepository.searchByNomAndDate(nom, debut);
     }
+    @Override
+    public Transfere getById(Long id) {
+        return transfertRepository.findById(id).orElse(null);
+    }
+
 
 }
 

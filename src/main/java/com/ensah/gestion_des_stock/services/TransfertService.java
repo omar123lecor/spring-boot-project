@@ -21,5 +21,5 @@ public interface TransfertService {
     List<Transfere> filtrerParDate(Date debut);
     List<Transfere> filtrerParNom(String nom);
     List<Transfere> searchByNomAndDate(String nom, Date startDate);
-
+    Transfere getById(Long id);
 }

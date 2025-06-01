@@ -4,6 +4,9 @@ import jakarta.persistence.OneToMany;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+
+
 
 import java.util.Set;
 

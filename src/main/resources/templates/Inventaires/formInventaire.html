@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+
+    <h2 th:text="${inventaireForm.id == null} ? 'Nouvel Inventaire' : 'Modifier Inventaire'"></h2>
+
+    <form th:action="@{/inventaires/save}" th:object="${inventaireForm}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="mb-3">
+            <label for="dateInventaire" class="form-label">Date</label>
+            <input type="date" id="dateInventaire" class="form-control" th:field="*{dateInventaire}" required/>
+            <div class="text-danger" th:if="${#fields.hasErrors('dateInventaire')}" th:errors="*{dateInventaire}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="entrepotId" class="form-label">Entrepôt</label>
+            <select id="entrepotId" class="form-select" th:field="*{entrepotId}">
+                <option value="">-- Sélectionner --</option>
+                <option th:each="e : ${entrepots}" th:value="${e.code}" th:text="${e.nom}"></option>
+            </select>
+            <div class="text-danger" th:if="${#fields.hasErrors('entrepotId')}" th:errors="*{entrepotId}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="effectuePar" class="form-label">Effectué par</label>
+            <input type="text" id="effectuePar" class="form-control" th:field="*{effectuePar}" required/>
+            <div class="text-danger" th:if="${#fields.hasErrors('effectuePar')}" th:errors="*{effectuePar}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="validePar" class="form-label">Validé par</label>
+            <input type="text" id="validePar" class="form-control" th:field="*{validePar}"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('validePar')}" th:errors="*{validePar}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="ecart" class="form-label">Écart</label>
+            <input type="number" id="ecart" class="form-control" th:field="*{ecart}"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('ecart')}" th:errors="*{ecart}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Valider</button>
+        <a th:href="@{/inventaires}" class="btn btn-secondary">Annuler</a>
+
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Inventaires</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+
+    <h2 class="mb-4">Recherche d'inventaires</h2>
+
+    <form class="row g-3 mb-4" th:action="@{/inventaires/search}" method="get">
+
+        <div class="col-md-4">
+            <label for="entrepotId" class="form-label">Filtrer par Entrepôt</label>
+            <select id="entrepotId" name="entrepotId" class="form-select">
+                <option value="">-- Tous les entrepôts --</option>
+                <option th:each="e : ${entrepots}"
+                        th:value="${e.code}"
+                        th:text="${e.nom}"
+                        th:selected="${e.code == param.entrepotId}">
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="dateDebut" class="form-label">Date inventaire (De)</label>
+            <input type="date" id="dateDebut" name="dateDebut" class="form-control"
+                   th:value="${param.dateDebut}"/>
+        </div>
+
+        <div class="col-md-3">
+            <label for="dateFin" class="form-label">Date inventaire (À)</label>
+            <input type="date" id="dateFin" name="dateFin" class="form-control"
+                   th:value="${param.dateFin}"/>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+        </div>
+
+    </form>
+
+    <h3>Résultats</h3>
+
+    <table class="table table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>Date Inventaire</th>
+            <th>Entrepôt</th>
+            <th>Effectué par</th>
+            <th>Validé par</th>
+            <th>Écart</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="inventaire : ${inventaires}">
+            <td th:text="${inventaire.id}"></td>
+            <td th:text="${#dates.format(inventaire.dateInventaire, 'dd/MM/yyyy')}"></td>
+            <td th:text="${inventaire.entropot.nom}"></td>
+            <td th:text="${inventaire.effectuePar}"></td>
+            <td th:text="${inventaire.validePar}"></td>
+            <td th:text="${inventaire.ecart}"></td>
+            <td>
+                <a th:href="@{/inventaires/telecharger}" class="btn btn-sm btn-warning">TELECHARGER</a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(inventaires)}">
+            <td colspan="7" class="text-center">Aucun inventaire trouvé.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/inventaires/nouveau" class="btn btn-success">Nouvel Inventaire</a>
+
+</div>
+</body>
+</html>
