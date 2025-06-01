@@ -13,13 +13,17 @@
         <li>Menu
             <ul class="dropdown">
                 <div>
-                    <li>Achat</li>
-                    <li>Reception</li>
+                    <a th:href="@{/achatListe}"><li>Achat</li></a>
+                    <a th:href="@{/receptionListe}"><li>Reception</li></a>
                     <li>Entrepot</li>
                     <li>Transfer</li>
                     <li>Inventaire</li>
-                    <li>Livraison</li>
-                    <li>Commande</li>
+                    <a th:href="@{/livraisons/}"><li>Livraison</li></a>
+                    <a th:href="@{/livraisons/add}"><li>Commande</li></a>
+                    <li>
+                        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;"></form>
+                    </li>
                 </div>
             </ul>
         </li>

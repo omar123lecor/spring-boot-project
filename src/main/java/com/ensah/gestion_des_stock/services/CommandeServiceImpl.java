@@ -25,6 +25,10 @@ public class CommandeServiceImpl implements CommandeService {
     public List<Commande> rechercherCommandes(String nom, Long id) {
         return CommandeRepository.findByNomAndId(nom, id);
     }
+    @Override
+    public List<Commande> findAll() {
+        return CommandeRepository.findAll();
+    }
 
 
 }

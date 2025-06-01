@@ -29,32 +29,42 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
-
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) ->
-                requests.requestMatchers("/h2-console/**","/login").permitAll()
+                requests.requestMatchers("/h2-console/**","/login","/login.css","/stock.jpg").permitAll()
                        .anyRequest().authenticated())
-                .formLogin(form -> form.loginPage("/login")
-                        .defaultSuccessUrl("/achatListe", true).permitAll())
+                .formLogin(form -> form
+                        .loginPage("/login")                         // page GET login
+                        .loginProcessingUrl("/login")                // POST target pour le formulaire
+                        .defaultSuccessUrl("/achatListe", true)      // redirection après succès
+                        .failureUrl("/login?error=true")             // redirection après échec
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")               // URL pour déclencher le logout (POST par défaut)
+                        .logoutSuccessUrl("/login?logout") // URL après déconnexion réussie
+                        .invalidateHttpSession(true)       // Invalide la session
+                        .deleteCookies("JSESSIONID")       // Supprime le cookie de session
+                        .permitAll()
+                )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")
                         .disable())
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        //http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         //http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
+
+
     @Autowired
     DataSource dataSource;
     @Bean
     public UserDetailsService userDetailsService(){
-        UserDetails user1 = User.withUsername("user1")
-                .password(passwordEncoder().encode("password1"))
-                .roles("USER")
-                .build();
+
 
         UserDetails admin = User.withUsername("admin")
                 .password(passwordEncoder().encode("adminPass"))
@@ -62,8 +72,10 @@ public class SecurityConfig  {
                 .build();
 
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        userDetailsManager.createUser(user1);
-        userDetailsManager.createUser(admin);
+
+        if (!userDetailsManager.userExists(admin.getUsername())) {
+            userDetailsManager.createUser(admin);
+        }
         return userDetailsManager;
         //return new InMemoryUserDetailsManager(user1,admin);
     }

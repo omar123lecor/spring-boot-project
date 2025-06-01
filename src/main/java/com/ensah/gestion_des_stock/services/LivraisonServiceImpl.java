@@ -3,10 +3,12 @@ package com.ensah.gestion_des_stock.services;
 import com.ensah.gestion_des_stock.model.Livraison;
 import com.ensah.gestion_des_stock.repositories.LivraisonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -61,5 +63,9 @@ public class LivraisonServiceImpl implements LivraisonService {
     @Override
     public List<Livraison> rechercherLivraisons(String nom, String entrepot, Date dateLiv) {
         return livraisonRepository.chercherLivraisons(nom, entrepot, dateLiv);
+    }
+    @Override
+    public Livraison findByCommande(Long id){
+        return livraisonRepository.findByCommande(id).orElse(null);
     }
 }

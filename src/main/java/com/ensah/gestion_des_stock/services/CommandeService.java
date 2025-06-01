@@ -11,4 +11,6 @@ public interface CommandeService {
     Commande getCommandeById(Long id);
     List<Commande> findByNom(String nom);
     List<Commande> rechercherCommandes(String nom, Long id);
+    List<Commande> findAll();
+
 }

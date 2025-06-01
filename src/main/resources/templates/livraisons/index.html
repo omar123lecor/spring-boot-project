@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Filtrage Livraisons</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<nav>
+    <ul id="menu">
+        <li>Menu
+            <ul class="dropdown">
+                <div>
+                    <a th:href="@{/achatListe}"><li>Achat</li></a>
+                    <a th:href="@{/receptionListe}"><li>Reception</li></a>
+                    <li>Entrepot</li>
+                    <li>Transfer</li>
+                    <li>Inventaire</li>
+                    <a th:href="@{/livraisons/}"><li>Livraison</li></a>
+                    <a th:href="@{/livraisons/add}"><li>Commande</li></a>
+                    <li>
+                        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;"></form>
+                    </li>
+                </div>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<div class="container my-4">
+    <h2 class="text-center mb-4">Liste des livraisons</h2>
+
+    <form class="row g-3" th:action="@{/livraisons/search}" method="get">
+        <div class="col-md-3">
+            <label for="dateLiv" class="form-label">Date de livraison :</label>
+            <input type="date" class="form-control" id="dateLiv" name="dateLiv" th:value="${dateLiv}">
+        </div>
+        <div class="col-md-3">
+            <label for="nom" class="form-label">Produit:</label>
+            <input type="text" class="form-control" id="nom" name="nom" th:value="${nom}">
+        </div>
+        <div class="col-md-2">
+            <label for="entropot" class="form-label">Entrepôt:</label>
+            <select class="form-select" id="entropot" name="entropot" >
+                <option value="">--Choisir--</option>
+                <option th:each="e : ${entropots}"
+                        th:value="${e.code}"
+                        th:text="${e.code}"
+                        th:selected="${e.code == entropot}">
+                </option>
+            </select>
+        </div>
+
+
+        <div class="col-md-1 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Chercher</button>
+        </div>
+    </form>
+
+    <div class="mb-3 text-end">
+        <a href="/livraisons/add" class="btn btn-success">+ Ajouter (livrer une commande)</a>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+        <tr>
+            <th>Datelivraison</th>
+            <th>N°docvent</th>
+            <th>Produit</th>
+            <th>Unité</th>
+            <th>Quantité</th>
+            <th>Destination</th>
+            <th>Source</th>
+            <th>remarque</th>
+            <th>CommandId</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="liv : ${livraisons}">
+            <td th:text="${#dates.format(liv.dateLiv, 'dd/MM/yyyy')}"></td>
+            <td th:text="${liv.id}"></td>
+            <td th:text="${liv.nom}"></td>
+            <td th:text="${liv.unite}"></td>
+            <td th:text="${liv.qte}"></td>
+            <td th:text="${liv.destination}"></td>
+            <td th:text="${liv.source}"></td>
+            <td th:text="${liv.remarque}"></td>
+            <td th:text="${liv.commande != null ? liv.commande.id : 0}"></td>
+            <td style="white-space: nowrap">
+                <a class="btn btn-sm btn-primary" th:href="@{/livraisons/edit(id=${liv.id})}">Modifier</a>
+                <a class="btn btn-sm btn-danger" th:href="@{/livraisons/delete(id=${liv.id})}" onclick="return confirm('Confirmer la suppression ?')">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
