@@ -59,12 +59,15 @@
         <tr th:each="inventaire : ${inventaires}">
             <td th:text="${inventaire.id}"></td>
             <td th:text="${#dates.format(inventaire.dateInventaire, 'dd/MM/yyyy')}"></td>
-            <td th:text="${inventaire.entropot.nom}"></td>
+            <td th:text="${inventaire.entropot.code}"></td>
             <td th:text="${inventaire.effectuePar}"></td>
             <td th:text="${inventaire.validePar}"></td>
             <td th:text="${inventaire.ecart}"></td>
             <td>
-                <a th:href="@{/inventaires/telecharger}" class="btn btn-sm btn-warning">TELECHARGER</a>
+                <a th:href="@{/inventaires/telecharger(code=${inventaire.entropot.code})}" class="btn btn-sm btn-warning">
+                    TELECHARGER
+                </a>
+
             </td>
         </tr>
         <tr th:if="${#lists.isEmpty(inventaires)}">

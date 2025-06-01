@@ -40,5 +40,20 @@ public class Entropot {
             this.address = address;
         }
 
- }
+        public Set<Reception> getReceptions() {
+            return receptions;
+        }
+
+        public void setReceptions(Set<Reception> receptions) {
+            this.receptions = receptions;
+        }
+
+        public Set<Inventaire> getInventaires() {
+            return inventaires;
+        }
+
+        public void setInventaires(Set<Inventaire> inventaires) {
+            this.inventaires = inventaires;
+        }
+}
 

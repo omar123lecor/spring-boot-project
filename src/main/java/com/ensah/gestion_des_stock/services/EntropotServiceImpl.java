@@ -47,8 +47,13 @@ public class EntropotServiceImpl implements EntropotService {
     public List<Entropot> lister() {
         return entrepotRepository.findAll();
     }
+    @Override
     public Entropot getEntropotByCode(String code) {
         return entrepotRepository.findById(code).orElse(null);
+    }
+    @Override
+    public Entropot getEntropotByNom(String nom) {
+        return entrepotRepository.findByNom(nom).orElse(null);
     }
 
 }

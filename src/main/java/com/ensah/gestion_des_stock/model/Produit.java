@@ -13,7 +13,7 @@ public class Produit {
     @Column(nullable = false)
     private String nom;
     private String unite;
-    private int qte;
+    private Long qte;
 
     public Long getId() {
         return id;
@@ -39,11 +39,11 @@ public class Produit {
         this.unite = unite;
     }
 
-    public int getQte() {
+    public Long getQte() {
         return qte;
     }
 
-    public void setQte(int qte) {
+    public void setQte(Long qte) {
         this.qte = qte;
     }
 }

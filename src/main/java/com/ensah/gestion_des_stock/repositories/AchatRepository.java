@@ -13,8 +13,10 @@ import java.util.Queue;
 public interface AchatRepository extends JpaRepository<Achat,Long> {
     @Query("""
     SELECT a FROM Achat a 
-    WHERE (:nom IS NULL OR a.nom = :nom) 
-    AND (:id IS NULL OR a.id=:id)""")
+    WHERE 
+        (:nom IS NULL OR a.nom LIKE CONCAT('%', :nom, '%'))
+        AND (:id IS NULL OR a.id = :id)
+""")
     List<Achat> findByIdOrNom(Long id,String nom);
 
 }

@@ -33,8 +33,10 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) ->
-                requests.requestMatchers("/h2-console/**").permitAll()
-                       .anyRequest().authenticated())
+                        requests.requestMatchers("/h2-console/**","/login").permitAll()
+                                .anyRequest().authenticated())
+                .formLogin(form -> form.loginPage("/login")
+                        .defaultSuccessUrl("/achatListe", true).permitAll())
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")
                         .disable())
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));

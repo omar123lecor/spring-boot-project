@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Inventaire</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 <div class="container mt-5">
 
     <h2 th:text="${inventaireForm.id == null} ? 'Nouvel Inventaire' : 'Modifier Inventaire'"></h2>
 
-    <form th:action="@{/inventaires/save}" th:object="${inventaireForm}" method="post">
-
-        <input type="hidden" th:field="*{id}"/>
+    <!-- Formulaire principal -->
+    <form th:action="@{/inventaires/save}" th:object="${inventaireForm}" method="post" id="mainForm" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}" />
 
         <div class="mb-3">
             <label for="dateInventaire" class="form-label">Date</label>
-            <input type="date" id="dateInventaire" class="form-control" th:field="*{dateInventaire}" required/>
+            <input type="date" id="dateInventaire" class="form-control" th:field="*{dateInventaire}" required />
             <div class="text-danger" th:if="${#fields.hasErrors('dateInventaire')}" th:errors="*{dateInventaire}"></div>
         </div>
 
         <div class="mb-3">
             <label for="entrepotId" class="form-label">Entrepôt</label>
-            <select id="entrepotId" class="form-select" th:field="*{entrepotId}">
+            <select id="entrepotId" class="form-select" th:field="*{entrepotId}" required>
                 <option value="">-- Sélectionner --</option>
                 <option th:each="e : ${entrepots}" th:value="${e.code}" th:text="${e.nom}"></option>
             </select>
@@ -31,27 +31,124 @@
 
         <div class="mb-3">
             <label for="effectuePar" class="form-label">Effectué par</label>
-            <input type="text" id="effectuePar" class="form-control" th:field="*{effectuePar}" required/>
+            <input type="text" id="effectuePar" class="form-control" th:field="*{effectuePar}" required />
             <div class="text-danger" th:if="${#fields.hasErrors('effectuePar')}" th:errors="*{effectuePar}"></div>
         </div>
 
         <div class="mb-3">
+            <label for="fichierInventaire" class="form-label">Fichier Inventaire (.csv)</label>
+            <input type="file" id="fichierInventaire" name="fichierInventaire" class="form-control" accept=".csv" required />
+        </div>
+
+        <!-- Bouton pour la comparaison -->
+        <button type="button" id="btnComparer" class="btn btn-info">Comparer</button>
+
+        <!-- Section pour afficher les résultats -->
+        <div id="resultatsComparaison" class="mt-4" style="display: none;">
+            <h4>Résultats de la comparaison</h4>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Unité</th>
+                    <th>Quantité Avant</th>
+                    <th>Quantité Après</th>
+                    <th>Écart</th>
+                </tr>
+                </thead>
+                <tbody id="comparaisonBody">
+                <!-- Les résultats seront insérés ici par JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mb-3 mt-4">
             <label for="validePar" class="form-label">Validé par</label>
-            <input type="text" id="validePar" class="form-control" th:field="*{validePar}"/>
+            <input type="text" id="validePar" class="form-control" th:field="*{validePar}" />
             <div class="text-danger" th:if="${#fields.hasErrors('validePar')}" th:errors="*{validePar}"></div>
         </div>
 
         <div class="mb-3">
-            <label for="ecart" class="form-label">Écart</label>
-            <input type="number" id="ecart" class="form-control" th:field="*{ecart}"/>
-            <div class="text-danger" th:if="${#fields.hasErrors('ecart')}" th:errors="*{ecart}"></div>
+            <label for="ecart" class="form-label">Écart total</label>
+            <input type="number" id="ecart" class="form-control" th:field="*{ecart}" readonly />
         </div>
 
+        <!-- Bouton pour soumettre le formulaire -->
         <button type="submit" class="btn btn-primary">Valider</button>
         <a th:href="@{/inventaires}" class="btn btn-secondary">Annuler</a>
-
     </form>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#btnComparer').click(function() {
+            // Vérifier que tous les champs requis sont remplis
+            const entrepotId = $('#entrepotId').val();
+            const fichier = $('#fichierInventaire')[0].files[0];
+
+            if (!entrepotId || !fichier) {
+                alert('Veuillez sélectionner un entrepôt et un fichier d\'inventaire');
+                return;
+            }
+
+            // Créer un FormData pour l'envoi AJAX
+            const formData = new FormData();
+            formData.append('fichierInventaire', fichier);
+            formData.append('codeEntrepot', entrepotId);
+
+            // Afficher un indicateur de chargement
+            $('#resultatsComparaison').hide();
+            $('#btnComparer').prop('disabled', true).text('Comparaison en cours...');
+
+            // Envoyer la requête AJAX
+            $.ajax({
+                url: '/inventaires/comparer',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    // Remplir le tableau avec les résultats
+                    const tbody = $('#comparaisonBody');
+                    tbody.empty();
+
+                    let ecartTotal = 0;
+
+                    data.forEach(function(item) {
+                        const row = $('<tr>');
+                        row.append($('<td>').text(item.produit));
+                        row.append($('<td>').text(item.unite));
+                        row.append($('<td>').text(item.quantiteAvant));
+                        row.append($('<td>').text(item.quantiteApres));
+
+                        const ecartCell = $('<td>').text(item.ecart);
+                        if (item.ecart > 0) {
+                            ecartCell.addClass('text-danger fw-bold');
+                        }
+                        row.append(ecartCell);
+
+                        tbody.append(row);
+
+                        ecartTotal += item.ecart;
+                    });
+
+                    // Mettre à jour l'écart total dans le formulaire
+                    $('#ecart').val(ecartTotal);
+
+                    // Afficher les résultats
+                    $('#resultatsComparaison').show();
+                },
+                error: function() {
+                    alert('Une erreur est survenue lors de la comparaison');
+                },
+                complete: function() {
+                    $('#btnComparer').prop('disabled', false).text('Comparer');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

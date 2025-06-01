@@ -25,4 +25,5 @@ public interface InventaireRepository extends JpaRepository<Inventaire, Long> {
             "AND (:startDate IS NULL OR :endDate IS NULL OR i.dateInventaire BETWEEN :startDate AND :endDate)")
     List<Inventaire> searchInventaires(Entropot entropot, Date startDate, Date endDate);
 
+
 }

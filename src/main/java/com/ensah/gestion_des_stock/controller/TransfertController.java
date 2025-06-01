@@ -63,7 +63,7 @@ public class TransfertController {
         Transfere t = new Transfere();
         t.setNom(form.getNom());
         t.setUnite(form.getUnite());
-        t.setQte(form.getQte());
+        t.setQte(Long.valueOf(form.getQte()));
         t.setDate_Transfere(form.getDateTransfere());
         t.setRemarque(form.getRemarque());
 
@@ -111,7 +111,7 @@ public class TransfertController {
         form.setId(t.getId());
         form.setNom(t.getNom());
         form.setUnite(t.getUnite());
-        form.setQte(t.getQte());
+        form.setQte(Long.valueOf(t.getQte()));
         form.setRemarque(t.getRemarque());
         form.setDateTransfere(t.getDate_Transfere());
         form.setEntrepotSourceId(t.getEntrepot_source().getCode());

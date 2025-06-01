@@ -1,6 +1,7 @@
 package com.ensah.gestion_des_stock.controller;
 
 import com.ensah.gestion_des_stock.DTO.InventaireDto;
+import com.ensah.gestion_des_stock.DTO.Invtdto;
 import com.ensah.gestion_des_stock.model.Entropot;
 import com.ensah.gestion_des_stock.model.Inventaire;
 import com.ensah.gestion_des_stock.services.EntropotService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
@@ -62,29 +64,6 @@ public class InventaireController {
         return "redirect:/inventaires";
     }
 
-    @GetMapping("/modifier/{id}")
-    public String modifier(@PathVariable Long id, Model model) {
-        Inventaire i = inventaireService.getById(id);
-        InventaireDto form = new InventaireDto();
-
-        form.setId(i.getId());
-        form.setDateInventaire(i.getDateInventaire());
-        form.setEffectuePar(i.getEffectuePar());
-        form.setValidePar(i.getValidePar());
-        form.setEcart(i.getEcart());
-        form.setEntrepotId(i.getEntropot().getCode());
-
-        model.addAttribute("inventaireForm", form);
-        model.addAttribute("entrepots", entropotService.lister());
-
-        return "Inventaires/formInventaire";
-    }
-
-    @GetMapping("/supprimer/{id}")
-    public String supprimer(@PathVariable Long id) {
-        inventaireService.supprimer(id);
-        return "redirect:/inventaires";
-    }
 
     // === Recherches supplémentaires ===
 
@@ -129,8 +108,20 @@ public class InventaireController {
         return "Inventaires/liste";
     }
     @GetMapping("/telecharger")
-    public void telecharger(HttpServletResponse response) throws IOException {
-        inventaireService.telecharger(response);
+    public void telecharger(@RequestParam("code") String codeEntrepot,
+                            HttpServletResponse response) throws IOException {
+        inventaireService.telecharger(codeEntrepot, response);
     }
+    @PostMapping("/comparer")
+    @ResponseBody
+    public List<Invtdto> comparerInventaire(@RequestParam("fichierInventaire") MultipartFile fichier,
+                                            @RequestParam("codeEntrepot") String codeEntrepot) {
+        return inventaireService.processInventoryFile(fichier, codeEntrepot);
+    }
+
+
+
+
+
 
 }

@@ -1,10 +1,9 @@
 package com.ensah.gestion_des_stock.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 public class Reception extends Produit {
@@ -16,7 +15,9 @@ public class Reception extends Produit {
     private Entropot entropot;
     private String type;
     private String remarque;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_commande")
+    private Achat achat ;
     public Reception(){}
 
     public Reception(Date dateReception, String source, String type, String remarque){
@@ -49,12 +50,20 @@ public class Reception extends Produit {
     public void setRemarque(String remarque) {
         this.remarque = remarque;
     }
-    public Entropot getEntrepot() {
+
+    public Entropot getEntropot() {
         return entropot;
     }
-    public void setEntrepot(Entropot entrepot) {
-        this.entropot = entrepot;
+
+    public void setEntropot(Entropot entropot) {
+        this.entropot = entropot;
     }
 
+    public Achat getAchat() {
+        return achat;
+    }
 
+    public void setAchat(Achat achat) {
+        this.achat = achat;
+    }
 }

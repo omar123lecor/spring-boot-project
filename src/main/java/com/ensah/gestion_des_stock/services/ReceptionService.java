@@ -1,5 +1,6 @@
 package com.ensah.gestion_des_stock.services;
 
+import com.ensah.gestion_des_stock.model.Achat;
 import com.ensah.gestion_des_stock.model.Entropot;
 import com.ensah.gestion_des_stock.model.Reception;
 
@@ -11,22 +12,26 @@ public interface ReceptionService {
 
     Reception ajouter(Reception reception);
 
-    void supprimer(Long id);
+    public List<Reception> allReceptions();
+    public void saveReception(Reception reception);
+    public void supprimer(Long id);
+    public List<Reception> dynamiqueR(Date date,Date date1,String nom,String magcode);
 
-    Reception modifier(Long id, Reception reception);
+    public Reception modifier(Long id, Reception reception);
 
-    List<Reception> lister();
+    public List<Reception> lister();
 
-    List<Reception> filtrerParSource(String source);
+    public List<Reception> filtrerParSource(String source);
 
-    List<Reception> filtrerParEntrepot(Entropot entrepot);
+    public List<Reception> filtrerParEntrepot(Entropot entrepot);
 
-    List<Reception> filtrerParType(String type);
+    public List<Reception> filtrerParType(String type);
 
-    List<Reception> filtrerParNom(String nom);
+    public List<Reception> filtrerParNom(String nom);
 
-    List<Reception> filtrerParDate(Date debut);
-    List<Reception> searchReceptions(Entropot entrepot,Date date, String nom);
+    public List<Reception> filtrerParDate(Date debut);
+    public  Reception filterParId(Long id);
+    public Reception findByAchatt(Long id);
+    public List<Reception> searchReceptions(Entropot entrepot,Date date, String nom);
 
 }
-

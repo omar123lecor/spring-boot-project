@@ -9,7 +9,7 @@ public class TransfertForm {
     private String nom;
     private String unite;
     @NotNull(message = "La quantité ne peut pas être vide")
-    private int qte;
+    private Long qte;
     @NotNull(message = "La date est requise")
     private Date dateTransfere;
     @NotBlank(message = "L'entrepôt source est requis")
@@ -45,11 +45,11 @@ public class TransfertForm {
         this.unite = unite;
     }
 
-    public int getQte() {
+    public Long getQte() {
         return qte;
     }
 
-    public void setQte(int qte) {
+    public void setQte(Long qte) {
         this.qte = qte;
     }
 

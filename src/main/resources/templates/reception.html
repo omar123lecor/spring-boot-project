@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<nav>
+    <ul id="menu">
+        <li>Menu
+            <ul class="dropdown">
+                <div>
+                    <li>Achat</li>
+                    <li>Reception</li>
+                    <li>Entrepot</li>
+                    <li>Transfer</li>
+                    <li>Inventaire</li>
+                    <li>Livraison</li>
+                    <li>Commande</li>
+                </div>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <span th:text="${successMessage}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<hr>
+<form method="get" th:action="@{/receptionListe}" class="p-4 bg-light rounded shadow-sm" style="max-width: 900px; margin: 30px auto;">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <label class="form-label fw-bold">Date de Réception :</label>
+        </div>
+        <div class="col-md-6">
+            <label for="dateDebut" class="form-label">De :</label>
+            <input type="date" id="dateDebut" name="date1" class="form-control">
+        </div>
+        <div class="col-md-6">
+            <label for="dateFin" class="form-label">À :</label>
+            <input type="date" id="dateFin" name="date2" class="form-control">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="fournisseur" class="form-label fw-bold">Produit :</label>
+            <input type="text" id="fournisseur" name="produit" class="form-control">
+        </div>
+        <div class="col-md-6">
+            <label  class="form-label fw-bold">Entrepôt :</label>
+            <select class="form-control" name="magcode">
+                <option value="" disabled th:selected="${magCode == null}">-- Choisissez un magasin --</option>
+                <option th:each="mag : ${magasin}" th:value="${mag.code}" th:text="${mag.code}" ></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary px-4">Rechercher</button>
+    </div>
+</form>
+
+<hr>
+
+<div class="container my-4">
+    <h1 class="text-center mb-3">List of Receptions</h1>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>DateReception</th>
+            <th>source</th>
+            <th>Entrepot</th>
+            <th>Type</th>
+            <th>Remarque</th>
+            <th>Produit</th>
+            <th>Unit</th>
+            <th>Qte</th>
+            <th>CommandId</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <tr th:each="reception: ${receptions}">
+            <td th:text = "${reception.getId()}"></td>
+            <td th:text = "${#dates.format(reception.dateReception, 'dd/MM/yyyy')}"></td>
+            <td th:text = "${reception.getSource()}"></td>
+            <td th:text = "${reception.getEntropot().getCode()}"></td>
+            <td th:text = "${reception.getType()}"></td>
+            <td th:text = "${reception.getRemarque()}"></td>
+            <td th:text = "${reception.getNom()}"></td>
+            <td th:text = "${reception.getUnite()}"></td>
+            <td th:text = "${reception.getQte()}"></td>
+            <td th:text = "${reception.getAchat().getId()}"></td>
+
+            <td style="white-space: nowrap">
+                <a  class="btn btn-primary btn-sm"
+                    th:href="@{/reception/edit(id=${reception.getId()})}">
+                    Edit
+                </a>
+                <a class="btn btn-danger btn-sm"
+                   th:href="@{/reception/delete(id=${reception.getId()})}"
+                   onclick="return confirm('Are you sure?')">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+</body>
+</html>
