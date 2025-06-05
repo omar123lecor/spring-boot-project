@@ -37,7 +37,7 @@ public class SecurityConfig  {
                 .formLogin(form -> form
                         .loginPage("/login")                         // page GET login
                         .loginProcessingUrl("/login")                // POST target pour le formulaire
-                        .defaultSuccessUrl("/achatListe", true)      // redirection après succès
+                        .defaultSuccessUrl("/entrepots", true)      // redirection après succès
                         .failureUrl("/login?error=true")             // redirection après échec
                         .permitAll()
                 )

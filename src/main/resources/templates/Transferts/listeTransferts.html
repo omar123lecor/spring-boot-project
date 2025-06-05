@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Transferts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"  th:href="@{/style.css}">
+</head>
+<body>
+<nav>
+    <ul id="menu">
+        <li>Menu
+            <ul class="dropdown">
+                <div>
+                    <a th:href="@{/achatListe}"><li>Achat</li></a>
+                    <a th:href="@{/receptionListe}"><li>Reception</li></a>
+                    <a th:href="@{/entrepots}"><li>Entrepot</li></a>
+                    <a th:href="@{/transferts}"><li>Transfer</li></a>
+                    <a th:href="@{/inventaires}"><li>Inventaire</li></a>
+                    <a th:href="@{/livraisons/}"><li>Livraison</li></a>
+                    <a th:href="@{/livraisons/add}"><li>Commande</li></a>
+                    <li>
+                        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;"></form>
+                    </li>
+                </div>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div class="container mt-4">
+
+    <h2 class="mb-4">Recherche de transferts</h2>
+
+    <form class="row g-3 mb-4" th:action="@{/transferts/search}" method="get">
+        <div class="col-md-3">
+            <label for="dateTransfere" class="form-label">Date de transfert (De)</label>
+            <input type="date" class="form-control" id="dateTransfere" name="dateTransfere" th:value="${dateTransfere}">
+        </div>
+        <div class="col-md-3">
+            <label for="nom" class="form-label">Produit</label>
+            <input type="text" class="form-control" id="nom" name="nom" th:value="${nom}">
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Chercher</button>
+        </div>
+    </form>
+
+    <h3>Résultats</h3>
+    <table class="table table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th>Date</th>
+            <th>Produit</th>
+            <th>Unite</th>
+            <th>Quantite</th>
+            <th>Entrepot source</th>
+            <th>Entreot cible</th>
+            <th>Remarque</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${transferts}">
+            <td th:text="${#dates.format(t.date_Transfere, 'dd/MM/yyyy')}"></td>
+            <td th:text="${t.nom}"></td>
+            <td th:text="${t.unite}"></td>
+            <td th:text="${t.qte}"></td>
+            <td th:text="${t.entrepot_source.code}"></td>
+            <td th:text="${t.entrepot_destination.code}"></td>
+            <td th:text="${t.remarque}"></td>
+            <td>
+                <a th:href="@{/transferts/modifier/{id}(id=${t.id})}" class="btn btn-sm btn-warning">Modifier</a>
+                <a th:href="@{/transferts/supprimer/{id}(id=${t.id})}" class="btn btn-sm btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/transferts/nouveau" class="btn btn-success">Nouveau transfert</a>
+
+</div>
+</body>
+</html>

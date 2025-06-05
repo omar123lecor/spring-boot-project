@@ -24,11 +24,21 @@ public class EntropotServiceImpl implements EntropotService {
     }
 
     @Override
-    public Entropot modifierEntropot(String code, Entropot entropot) {
+  /*  public Entropot modifierEntropot(String code, Entropot entropot) {
         Entropot existing = entrepotRepository.findById(code).orElse(null);
         if (existing != null) {
             entropot.setCode(code); // assure l'update
             return entrepotRepository.save(entropot);
+        }
+        return null;
+    }*/
+    public Entropot modifierEntropot(String code, Entropot updated) {
+        Entropot existing = entrepotRepository.findById(code).orElse(null);
+        if (existing != null) {
+            existing.setNom(updated.getNom());
+            existing.setAddress(updated.getAddress());
+            // Pas besoin de modifier le code (ID)
+            return entrepotRepository.save(existing);
         }
         return null;
     }
@@ -40,5 +50,10 @@ public class EntropotServiceImpl implements EntropotService {
     @Override
     public Entropot getEntropotByCode(String code) {
         return entrepotRepository.findById(code).orElse(null);
-}
+    }
+    @Override
+    public Entropot getEntropotByNom(String nom) {
+        return entrepotRepository.findByNom(nom).orElse(null);
+    }
+
 }

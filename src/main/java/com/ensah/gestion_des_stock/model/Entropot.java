@@ -1,9 +1,13 @@
 package com.ensah.gestion_des_stock.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+
+
 
 import java.util.Set;
 
@@ -13,9 +17,9 @@ public class Entropot {
         private String code;
         private String nom;
         private String address;
-        @OneToMany(mappedBy = "entropot")
+        @OneToMany(mappedBy = "entropot",cascade = CascadeType.ALL)
         private Set<Reception> receptions;
-        @OneToMany(mappedBy = "entropot")
+        @OneToMany(mappedBy = "entropot",cascade = CascadeType.ALL)
         private Set<Inventaire> inventaires;
 
         public String getCode() {
@@ -37,5 +41,20 @@ public class Entropot {
             this.address = address;
         }
 
- }
+        public Set<Reception> getReceptions() {
+            return receptions;
+        }
+
+        public void setReceptions(Set<Reception> receptions) {
+            this.receptions = receptions;
+        }
+
+        public Set<Inventaire> getInventaires() {
+            return inventaires;
+        }
+
+        public void setInventaires(Set<Inventaire> inventaires) {
+            this.inventaires = inventaires;
+        }
+}
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Transfert</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"  th:href="@{/style.css}">
+</head>
+<body>
+<nav>
+    <ul id="menu">
+        <li>Menu
+            <ul class="dropdown">
+                <div>
+                    <a th:href="@{/achatListe}"><li>Achat</li></a>
+                    <a th:href="@{/receptionListe}"><li>Reception</li></a>
+                    <a th:href="@{/entrepots}"><li>Entrepot</li></a>
+                    <a th:href="@{/transferts}"><li>Transfer</li></a>
+                    <a th:href="@{/inventaires}"><li>Inventaire</li></a>
+                    <a th:href="@{/livraisons/}"><li>Livraison</li></a>
+                    <a th:href="@{/livraisons/add}"><li>Commande</li></a>
+                    <li>
+                        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;"></form>
+                    </li>
+                </div>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div class="container mt-5">
+    <h2 th:text="${form.id == null} ? 'Nouveau Transfert' : 'Modifier Transfert'"></h2>
+
+    <form th:action="@{/transferts/save}" th:object="${form}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="mb-3">
+            <label class="form-label">Date de transfert</label>
+            <input type="date" class="form-control" th:field="*{dateTransfere}"/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Produit</label>
+            <input type="text" class="form-control" th:field="*{nom}"/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Unité</label>
+            <input type="text" class="form-control" th:field="*{unite}"/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Quantité</label>
+            <input type="number" class="form-control" th:field="*{qte}"/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Entrepôt Source</label>
+            <select class="form-select" th:field="*{entrepotSourceId}">
+                <option th:each="e : ${entrepots}" th:value="${e.code}" th:text="${e.code}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Entrepôt Cible</label>
+            <select class="form-select" th:field="*{entrepotDestinationId}">
+                <option th:each="e : ${entrepots}" th:value="${e.code}" th:text="${e.code}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Remarque</label>
+            <textarea class="form-control" th:field="*{remarque}"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Valider</button>
+        <a href="/transferts" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+</body>
+</html>

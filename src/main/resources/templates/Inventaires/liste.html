@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Inventaires</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"  th:href="@{/style.css}">
+</head>
+<body>
+<nav>
+    <ul id="menu">
+        <li>Menu
+            <ul class="dropdown">
+                <div>
+                    <a th:href="@{/achatListe}"><li>Achat</li></a>
+                    <a th:href="@{/receptionListe}"><li>Reception</li></a>
+                    <a th:href="@{/entrepots}"><li>Entrepot</li></a>
+                    <a th:href="@{/transferts}"><li>Transfer</li></a>
+                    <a th:href="@{/inventaires}"><li>Inventaire</li></a>
+                    <a th:href="@{/livraisons/}"><li>Livraison</li></a>
+                    <a th:href="@{/livraisons/add}"><li>Commande</li></a>
+                    <li>
+                        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;"></form>
+                    </li>
+                </div>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div class="container mt-4">
+
+    <h2 class="mb-4">Recherche d'inventaires</h2>
+
+    <form class="row g-3 mb-4" th:action="@{/inventaires/search}" method="get">
+        <div class="col-md-4">
+            <label for="code" class="form-label">Filtrer par Entrepôt</label>
+            <select id="code" name="code" class="form-select">
+                <option value="">-- Tous les entrepôts --</option>
+                <option th:each="e : ${magasins}"
+                        th:value="${e.code}"
+                        th:text="${e.nom}"
+                        th:selected="${e.code == param.code}">
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="debut" class="form-label">Date inventaire (De)</label>
+            <input type="date" id="debut" name="debut" class="form-control"
+                   th:value="${param.debut}"/>
+        </div>
+
+        <div class="col-md-3">
+            <label for="fin" class="form-label">Date inventaire (À)</label>
+            <input type="date" id="fin" name="fin" class="form-control"
+                   th:value="${param.fin}"/>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+        </div>
+    </form>
+
+    <h3>Résultats</h3>
+
+    <table class="table table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>Date Inventaire</th>
+            <th>Entrepôt</th>
+            <th>Effectué par</th>
+            <th>Validé par</th>
+            <th>Écart</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="inventaire : ${inventaires}">
+            <td th:text="${inventaire.id}"></td>
+            <td th:text="${#dates.format(inventaire.dateInventaire, 'dd/MM/yyyy')}"></td>
+            <td th:text="${inventaire.entropot.code}"></td>
+            <td th:text="${inventaire.effectuePar}"></td>
+            <td th:text="${inventaire.validePar}"></td>
+            <td th:text="${inventaire.ecart}"></td>
+            <td>
+                <a th:href="@{/inventaires/telecharger(code=${inventaire.entropot.code})}" class="btn btn-sm btn-warning">
+                    TELECHARGER
+                </a>
+
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(inventaires)}">
+            <td colspan="7" class="text-center">Aucun inventaire trouvé.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/inventaires/nouveau" class="btn btn-success">Nouvel Inventaire</a>
+
+</div>
+</body>
+</html>
